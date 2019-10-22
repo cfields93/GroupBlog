@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GroupBlog.Models
 {
@@ -13,6 +14,7 @@ namespace GroupBlog.Models
         [Required]
         public string Title { get; set; }
         [Required]
+        [AllowHtml]
         public string Body { get; set; }
         public DateTime Date { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

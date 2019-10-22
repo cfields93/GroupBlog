@@ -12,7 +12,7 @@
     @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
     <span class="text-danger">@Html.ValidationMessageFor(m => m.Title)</span>
     @Html.LabelFor(m => m.Body)
-    @Html.TextBoxFor(m => m.Body, new { @class = "form-control" })
+    @Html.TextAreaFor(m => m.Body, new { @class = "form-control", @id = "bodytext" })
     <span class="text-danger">@Html.ValidationMessageFor(m => m.Body)</span>
     <button type="submit" class="btn btn-warning">Add Blog</button>
 }

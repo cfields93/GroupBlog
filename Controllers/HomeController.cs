@@ -16,6 +16,11 @@ namespace GroupBlog.Controllers
         {
             
         }
+
+        public ActionResult AddBlog()
+        {
+            return RedirectToAction("AddBlog", "Account");
+        }
         public ActionResult Index()
         {
             BlogRepository _blogRepository = new BlogRepository();

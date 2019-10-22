@@ -12,7 +12,7 @@
         <div class="card">
             <h5 class="card-header">@Model[i].Title</h5>
             <div class="card-body">
-                <p class="card-text">@Model[i].Body</p>
+                <p class="card-text">@Html.Raw(Model[i].Body)</p>
             </div>
         </div>
         <br />
