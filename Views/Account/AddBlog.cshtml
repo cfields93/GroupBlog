@@ -1,0 +1,18 @@
+﻿@model GroupBlog.Models.Blog
+
+@{
+    ViewBag.Title = "AddBlog";
+}
+
+<h2>Add Blog</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+    <span class="text-danger">@Html.ValidationMessageFor(m => m.Title)</span>
+    @Html.LabelFor(m => m.Body)
+    @Html.TextBoxFor(m => m.Body, new { @class = "form-control" })
+    <span class="text-danger">@Html.ValidationMessageFor(m => m.Body)</span>
+    <button type="submit" class="btn btn-warning">Add Blog</button>
+}
