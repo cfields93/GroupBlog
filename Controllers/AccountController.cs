@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GroupBlog.Models;
 using GroupBlog.Models.Data;
+using System.Collections.Generic;
 
 namespace GroupBlog.Controllers
 {
@@ -424,7 +425,7 @@ namespace GroupBlog.Controllers
 
             base.Dispose(disposing);
         }
-
+        [Authorize(Roles = "Admin, Contributor")]
         public ActionResult AddBlog()
         {
             Blog blog = new Blog();
@@ -433,13 +434,52 @@ namespace GroupBlog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, Contributor")]
         public ActionResult AddBlog(Blog blog)
         {
+
+            if (User.IsInRole("Admin"))
+            {
+                BlogRepository _blogRepository = new BlogRepository();
+                blog.Approved = true;
+                _blogRepository.Add(blog);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                BlogRepository _blogRepository = new BlogRepository();
+                blog.Approved = false;
+                _blogRepository.Add(blog);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult ApproveBlog()
+        {
             BlogRepository _blogRepository = new BlogRepository();
-            _blogRepository.Add(blog);
+            List<Blog> blogs = new List<Blog>();
+            blogs = _blogRepository.GetAll().Where(b => !b.Approved).ToList();
+
+            return View(blogs);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult ApproveBlog(int id)
+        {
+            BlogRepository _blogRepository = new BlogRepository();
+            Blog blog = _blogRepository.GetAll().FirstOrDefault(b => b.Id == id);
+            blog.Approved = true;
+            _blogRepository.Update(blog);
             return RedirectToAction("Index", "Home");
         }
-
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteBlog(int id)
+        {
+            BlogRepository _blogRepository = new BlogRepository();
+            _blogRepository.Delete(id);
+            return RedirectToAction("ApproveBlog");
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

@@ -17,6 +17,7 @@ namespace GroupBlog.Models
         [AllowHtml]
         public string Body { get; set; }
         public DateTime Date { get; set; }
+        public bool Approved { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> Errors = new List<ValidationResult>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -47,6 +48,7 @@ namespace GroupBlog.Models.Data
 
         public void Add(Blog blog)
         {
+
             blog.Date = DateTime.Now;
             repo.Blogs.Add(blog);
             repo.SaveChanges();
@@ -66,6 +68,37 @@ namespace GroupBlog.Models.Data
             //    cmd.ExecuteNonQuery();
 
             //}
+        }
+        public void Delete(int id)
+        {
+            repo.Blogs.Remove(repo.Blogs.FirstOrDefault(b => b.Id == id));
+            repo.SaveChanges();
+        }
+        public void Update(Blog blog)
+        {
+            Blog found = repo.Blogs.FirstOrDefault(b => b.Id == blog.Id);
+            found.Approved = blog.Approved;
+            found.Title = blog.Title;
+            found.Body = blog.Body;
+            found.Date = DateTime.Now;
+            try
+            {
+                repo.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
     }
 }

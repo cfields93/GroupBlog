@@ -26,6 +26,10 @@
                         @Html.ActionLink("Add Blog", "AddBlog", "Account", null, new { @class = "nav-item nav-link" })
 
                     }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Approve Blog", "ApproveBlog", "Account", null, new { @class = "nav-item nav-link" })
+                    }
                 </div>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -211,3 +211,5 @@ C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.csproj.GenerateResource.cache
 C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.csproj.CopyComplete
 C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.dll
 C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.pdb
+C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.csprojAssemblyReference.cache
+C:\Repos\GroupFinal\GroupBlog\obj\Debug\GroupBlog.Migrations.init2.resources
